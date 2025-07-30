@@ -38,17 +38,6 @@ function App() {
             <Footer />
           </div>
 
-          <style jsx global>{`
-            .app {
-              min-height: 100vh;
-              display: flex;
-              flex-direction: column;
-            }
-
-            .main-content {
-              flex: 1;
-            }
-          `}</style>
             </Router>
           </WishlistProvider>
         </CartProvider>

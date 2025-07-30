@@ -5,12 +5,8 @@ import { Link } from 'react-router-dom';
 import { formatCurrency } from '../utils/currency';
 
 function ProductCard({ product }) {
-  // Safety check for product
-  if (!product || !product._id) {
-    return null;
-  }
-
-  const { addToCart } = useContext(CartContext);
+  // All hooks must be called before any conditional returns
+  const { addToCart } = useContext(CartContext) || { addToCart: () => {} };
   const { wishlistItems, addToWishlist, removeFromWishlist, isInWishlist } = useContext(WishlistContext) || {
     wishlistItems: [],
     addToWishlist: () => {},
@@ -18,6 +14,11 @@ function ProductCard({ product }) {
     isInWishlist: () => false
   };
   const [isAddingToCart, setIsAddingToCart] = useState(false);
+
+  // Safety check for product (after all hooks)
+  if (!product || !product._id) {
+    return null;
+  }
 
   const productInWishlist = isInWishlist ? isInWishlist(product._id) : false;
 

@@ -49,7 +49,7 @@ function Home() {
   const fetchProducts = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:5000/api/products');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/products`);
       setProducts(response.data);
       setFilteredProducts(response.data);
       
@@ -66,8 +66,16 @@ function Home() {
         totalProducts: response.data.length
       }));
     } catch (err) {
-      setError('Failed to load products. Please try again later.');
       console.error('Error fetching products:', err);
+      if (err.code === 'ECONNREFUSED' || err.message.includes('Network Error')) {
+        setError('Cannot connect to server. Please make sure the backend is running on port 5000.');
+      } else if (err.response?.status === 404) {
+        setError('Products API endpoint not found. Please check the server configuration.');
+      } else if (err.response?.status >= 500) {
+        setError('Server error occurred. Please try again later.');
+      } else {
+        setError(`Failed to load products: ${err.message || 'Unknown error'}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -75,7 +83,7 @@ function Home() {
 
   const fetchSoldProducts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/api/orders/sold-products');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL || 'http://localhost:5000'}/api/orders/sold-products`);
       setSoldProducts(response.data);
     } catch (err) {
       console.error('Error fetching sold products:', err);
