@@ -78,7 +78,8 @@ npm start
 📷 Screenshot Gallery
 
 Landing Page
-<img width="1914" height="1029" alt="image" src="https://github.com/user-attachments/assets/9bceedf8-b8ad-4c9b-be9a-c5c004d5e98d" />
+<img width="990" height="990" alt="image" src="https://github.com/user-attachments/assets/9bceedf8-b8ad-4c9b-be9a-c5c004d5e98d" />
+
 
 Chatbot Support
 <img width="833" height="934" alt="image" src="https://github.com/user-attachments/assets/645231ca-7c0b-4e8e-add4-3c61a59aa97b" />
